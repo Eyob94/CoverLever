@@ -23,6 +23,7 @@ import RadioCard from "./RadioCard";
 import { useForm } from "react-hook-form";
 import { readCV } from "../../utils/readPdf";
 import { useState } from "react";
+import axios from "axios";
 
 const options = [
 	{
@@ -70,14 +71,27 @@ const Form = () => {
 				</Text>
 			</CardHeader>
 			<form
-				onSubmit={handleSubmit((data) => {
+				onSubmit={handleSubmit(async (data) => {
 					if (!pdfContent) {
 						setEmptyFile(true);
 						return;
 					}
 					const requestBody = { toneValue, pdfContent, ...data };
 
-					console.log(requestBody);
+					try {
+						console.log("sending");
+						const { data } = await axios({
+							method: "POST",
+							url: "/generateResponse",
+							data: {
+								...requestBody,
+							},
+						});
+						console.log(data);
+					} catch (e) {
+						console.log(e);
+						return;
+					}
 				})}
 			>
 				<Flex direction={"column"} gap={6}>
