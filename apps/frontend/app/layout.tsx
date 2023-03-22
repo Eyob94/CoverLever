@@ -6,6 +6,7 @@ import { NavBar } from '../components/Navbar/navbar';
 import './globals.css';
 import { Inter } from '@next/font/google';
 import Footer from '../components/Footer/Footer';
+import { RecoilRoot } from 'recoil';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,21 +27,23 @@ export default function RootLayout({
           {/* <div className="backGEllipse"></div> */}
           <div className="backG"></div>
         </div>
-        <CacheProvider>
-          <ChakraProvider>
-            <Container
-              fontFamily={'Inter'}
-              maxW="container.xl"
-              py={14}
-              color="white"
-            >
-              <NavBar />
-              {children}
-              <Spacer height={20} />
-              <Footer />
-            </Container>
-          </ChakraProvider>
-        </CacheProvider>
+        <RecoilRoot>
+          <CacheProvider>
+            <ChakraProvider>
+              <Container
+                fontFamily={'Inter'}
+                maxW="container.xl"
+                py={14}
+                color="white"
+              >
+                <NavBar />
+                {children}
+                <Spacer height={20} />
+                <Footer />
+              </Container>
+            </ChakraProvider>
+          </CacheProvider>
+        </RecoilRoot>
       </body>
     </html>
   );
